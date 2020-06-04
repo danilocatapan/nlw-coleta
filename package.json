@@ -4,13 +4,14 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "nodemon src/server.js"
   },
   "author": "Danilo Rodrigues Catapan",
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "git-commit-msg-linter": "^2.4.2"
+    "git-commit-msg-linter": "^2.4.2",
+    "nodemon": "^2.0.4"
   }
 }
