@@ -8,7 +8,8 @@
   },
   "author": "Danilo Rodrigues Catapan",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.1"
   },
   "devDependencies": {
     "git-commit-msg-linter": "^2.4.2",
