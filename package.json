@@ -6,5 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Danilo Rodrigues Catapan"
+  "author": "Danilo Rodrigues Catapan",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "git-commit-msg-linter": "^2.4.2"
+  }
 }
