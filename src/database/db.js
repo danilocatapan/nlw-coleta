@@ -17,4 +17,36 @@ db.serialize(() => {
     );
   `)
 
+  const query = `
+    INSERT INTO places (
+      image,
+      name,
+      address,
+      address2,
+      state,
+      city,
+      items
+    ) VALUES (?,?,?,?,?,?,?);
+  `
+  const values = [ 
+    "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=874&q=80",
+    "Colectoria",
+    "Guilherme Gemballa, Jardim América",
+    "Nº 260",
+    "Santa Catarina",
+    "Rio do Sul",
+    "Resíduos Eletrônicos, Lâmpadas"
+  ] 
+
+  function afterInsertData(error) {
+    if(error) {
+      return console.log("ERROR UPDATE: ", error)
+    }
+
+    console.log("Cadastrado com sucesso!")
+    console.log(this)
+  }
+
+  db.run(query, values, afterInsertData)
+
 })
