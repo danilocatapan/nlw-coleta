@@ -19,6 +19,39 @@ server.get("/", (req, res) => {
 server.get("/create-point", (req, res) => {
   return res.render("create-point.html")
 })
+
+server.post("/create-point", (req, res) => {
+    const query = `
+    INSERT INTO places (
+      image,
+      name,
+      address,
+      address2,
+      state,
+      city,
+      items
+    ) VALUES (?,?,?,?,?,?,?);
+  `
+  const values = [ 
+    req.body.image,
+    req.body.name,
+    req.body.address,
+    req.body.address2,
+    req.body.state,
+    req.body.city,
+    req.body.items
+  ] 
+
+  function afterInsertData(error) {
+    if(error) {
+      return console.log("ERROR UPDATE: ", error)
+    }
+
+    return res.send("ok")
+  }
+  
+  db.run(query, values, afterInsertData)
+})
  
 server.get("/search", (req, res) => {
 
