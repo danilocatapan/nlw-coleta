@@ -44,10 +44,11 @@ server.post("/create-point", (req, res) => {
 
   function afterInsertData(error) {
     if(error) {
-      return console.log("ERROR UPDATE: ", error)
+      console.log("ERROR UPDATE: ", error)
+      return res.send("Erro no cadastro!")
     }
 
-    return res.send("ok")
+    return res.render("create-point.html", { saved: true })
   }
   
   db.run(query, values, afterInsertData)
