@@ -1,27 +1,27 @@
-const express = require("express")
+const express = require('express')
 const server = express()
 
-const db = require("./database/db")
+const db = require('./database/db')
 
-server.use(express.static("public"))
+server.use(express.static('public'))
 server.use(express.urlencoded({ extended: true }))
 
-const nunjucks = require("nunjucks")
-nunjucks.configure("src/views", {
+const nunjucks = require('nunjucks')
+nunjucks.configure('src/views', {
   express: server,
   noCache: true
 })
 
-server.get("/", (req, res) => {
-  return res.render("index.html", { title: "Um título"})
+server.get('/', (req, res) => {
+  return res.render('index.html', { title: 'Um título' })
 })
 
-server.get("/create-point", (req, res) => {
-  return res.render("create-point.html")
+server.get('/create-point', (req, res) => {
+  return res.render('create-point.html')
 })
 
-server.post("/create-point", (req, res) => {
-    const query = `
+server.post('/create-point', (req, res) => {
+  const query = `
     INSERT INTO places (
       image,
       name,
@@ -32,7 +32,7 @@ server.post("/create-point", (req, res) => {
       items
     ) VALUES (?,?,?,?,?,?,?);
   `
-  const values = [ 
+  const values = [
     req.body.image,
     req.body.name,
     req.body.address,
@@ -40,36 +40,35 @@ server.post("/create-point", (req, res) => {
     req.body.state,
     req.body.city,
     req.body.items
-  ] 
+  ]
 
-  function afterInsertData(error) {
-    if(error) {
-      console.log("ERROR UPDATE: ", error)
-      return res.send("Erro no cadastro!")
+  function afterInsertData (error) {
+    if (error) {
+      console.log('ERROR UPDATE: ', error)
+      return res.send('Erro no cadastro!')
     }
 
-    return res.render("create-point.html", { saved: true })
+    return res.render('create-point.html', { saved: true })
   }
-  
+
   db.run(query, values, afterInsertData)
 })
- 
-server.get("/search", (req, res) => {
 
+server.get('/search', (req, res) => {
   const search = req.query.search
 
   if (!search) {
-    return res.render("search-results.html", { total: 0 })
+    return res.render('search-results.html', { total: 0 })
   }
 
-  db.all(`SELECT * FROM places WHERE city LIKE '%${search}%'`, function(error, rows) {
-    if(error) {
-      return console.log("ERROR SELECT * : ", error)
+  db.all(`SELECT * FROM places WHERE city LIKE '%${search}%'`, function (error, rows) {
+    if (error) {
+      return console.log('ERROR SELECT * : ', error)
     }
 
     const total = rows.length
 
-    return res.render("search-results.html", { places: rows, total })
+    return res.render('search-results.html', { places: rows, total })
   })
 })
 
