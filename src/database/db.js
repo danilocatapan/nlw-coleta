@@ -47,6 +47,15 @@ db.serialize(() => {
     console.log(this)
   }
 
-  db.run(query, values, afterInsertData)
+  //db.run(query, values, afterInsertData)
+
+  db.all(`SELECT * FROM places`, function(error, rows) {
+    if(error) {
+      return console.log("ERROR SELECT * : ", error)
+    }
+
+    console.log("Registros: ")
+    console.log(rows)
+  })
 
 })
