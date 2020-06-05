@@ -56,7 +56,13 @@ server.post("/create-point", (req, res) => {
  
 server.get("/search", (req, res) => {
 
-  db.all(`SELECT * FROM places`, function(error, rows) {
+  const search = req.query.search
+
+  if (!search) {
+    return res.render("search-results.html", { total: 0 })
+  }
+
+  db.all(`SELECT * FROM places WHERE city LIKE '%${search}%'`, function(error, rows) {
     if(error) {
       return console.log("ERROR SELECT * : ", error)
     }
