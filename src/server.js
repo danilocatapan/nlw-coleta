@@ -4,6 +4,7 @@ const server = express()
 const db = require("./database/db")
 
 server.use(express.static("public"))
+server.use(express.urlencoded({ extended: true }))
 
 const nunjucks = require("nunjucks")
 nunjucks.configure("src/views", {
@@ -18,7 +19,7 @@ server.get("/", (req, res) => {
 server.get("/create-point", (req, res) => {
   return res.render("create-point.html")
 })
-
+ 
 server.get("/search", (req, res) => {
 
   db.all(`SELECT * FROM places`, function(error, rows) {
