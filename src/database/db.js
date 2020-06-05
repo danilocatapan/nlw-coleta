@@ -58,4 +58,12 @@ db.serialize(() => {
     console.log(rows)
   })
 
+  db.run(`DELETE FROM places WHERE id = ?`, [1], function(error, rows) {
+    if(error) {
+      return console.log("ERROR DELETE : ", error)
+    }
+
+    console.log("Registro deletado com sucesso!")
+  })
+
 })
